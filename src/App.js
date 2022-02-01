@@ -5,43 +5,42 @@ import { Component } from 'react';
 class App extends Component{
 
   state = {
-    name: '',
-    counter: 0
+    posts: [
+      {
+        id:1,
+        title: "titulo do post 1",
+        body: "corpo do post 1"
+      },
+      {
+        id:2,
+        title: "titulo do post 2",
+        body: "corpo do post 2"
+      },
+      {
+        id:3,
+        title: "titulo do post 3",
+        body: "corpo do post 3"
+      }
+    ]
   }
 
-  handlePclick = () => {
-    this.setState({name:"kayolera clicou"})
-  }
-
-  handleAclick = (event) => {
-    event.preventDefault();
-    const {counter} = this.state;
-    this.setState({counter: counter+1})
-  }
+ 
 
   render(){
-    const {name, counter} = this.state;
+    const {posts} = this.state;
     return (
      
       <div className="App">
-       <header className="App-header">
-         <img src={logo} className="App-logo" alt="logo" />
-         <p onClick={this.handlePclick}>
-           Edit <code>src/App.js</code> and save to reload.
-           name: {name}
-           <br/>
-           counter: {counter}
-         </p>
-         <a
-         onClick={this.handleAclick}
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      {
+        posts.map( (post) => (
+          <div key={post.id}>
+            <h4>{post.title}</h4>
+            <p>{post.body}</p>
+          </div>
+        ))
+      }
+      
     </div>
     );
   }
