@@ -2,46 +2,32 @@ import logo from './logo.svg';
 import './App.css';
 import { Component } from 'react';
 
+import { loadPosts } from './utils/load-posts';
+import { Posts } from './components/PostCard/Posts';
+
 class App extends Component{
 
   state = {
-    posts: [
-      {
-        id:1,
-        title: "titulo do post 1",
-        body: "corpo do post 1"
-      },
-      {
-        id:2,
-        title: "titulo do post 2",
-        body: "corpo do post 2"
-      },
-      {
-        id:3,
-        title: "titulo do post 3",
-        body: "corpo do post 3"
-      }
-    ]
+    posts: []
   }
 
- 
+ async componentDidMount(){
+   await this.loadPosts();
+ }
+
+ loadPosts = async () => {
+  const pstsAndPhotos = await loadPosts();
+  this.setState({posts: pstsAndPhotos})
+
+ }
 
   render(){
     const {posts} = this.state;
     return (
-     
-      <div className="App">
-      
-      {
-        posts.map( (post) => (
-          <div key={post.id}>
-            <h4>{post.title}</h4>
-            <p>{post.body}</p>
-          </div>
-        ))
-      }
-      
-    </div>
+     <section className='container'>
+       <Posts posts={posts} />
+     </section>
+    
     );
   }
 
